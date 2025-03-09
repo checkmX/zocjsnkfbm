@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT BLACK OMEGA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+        body {
+            background: #050505;
+            color: #00ff00;
+            font-family: 'Share Tech Mono', monospace;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid green;
+            margin: 30px auto;
+        }
+
+        .links {
+            margin-top: 30px;
+        }
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+        #password-hint {
+            background: black;
+            color: #00ff00;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid #00ff00;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        #countdown {
+            margin-top: 30px;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PROJECT KIRILL</h1>
+        <div class="triangle"></div>
+
+        <div id="password-hint"><span style="color: red;"> YR9bhi95pZ </span></div>
+
+        <div class="links">
+            <h3>Доступные файлы:</h3>
+            <a href="https://gofile.io/d/sSMf3n" target="_blank">₽₽₽₽₽</a>
+            <a href="https://pastebin.com/WbR4qPwh" target="_blank">p**sw*rd</a>
+            <a href="https://goo.su/zbawTzW" target="_blank">משטרת ישראל</a>
+            <a href="https://ibb.co/gb17ym5D" target="_blank">KEPKA</a>
+            <a href="https://goo.su/1Lv1nVq" target="_blank">файлики</a>
+            <a href="https://bbc.com" target="_blank">CBB</a>
+            <a href="https://amp.base64decode.org" target="_blank">шифрик</a>
+        </div>
+
+        <p id="countdown"></p>
+    </div>
+
+    <script>
+        // Обратный отсчёт до удаления
+        let timeLeft = 1000;
+        function countdown() {
+            if (timeLeft <= 0) {
+                document.body.innerHTML = "<h1>ФАЙЛЫ УНИЧТОЖЕНЫ</h1><p>Соединение закрыто.</p>";
+            } else {
+                document.getElementById("countdown").innerText = "Время до удаления: " + timeLeft + " сек.";
+                timeLeft--;
+                setTimeout(countdown, 1000);
+            }
+        }
+        countdown();
+    </script>
+</body>
+</html>
